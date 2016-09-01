@@ -1,0 +1,152 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Script-Type" content="text/javascript">
+        <meta charset = "utf-8">
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/white.css">
+        <link rel="stylesheet" href="font-awesome-4.6.3/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="lib/js/head.min.js"></script>
+        <!-- font-awesomeとか入れる -->
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>pixiv 2016 </h1>
+                    <h1>SUMMER BOOT CAMP</h1>
+                    <h1>成果発表</h1>
+                    <br>
+                    <h4>首都大学東京 B3</h4>
+                    <h3>高見 玲</h3>
+                </section>
+
+                <section>
+                     <h1>pixivision</h3>
+                    <!-- 画像におきかえ -->
+                </section>
+
+                <section>
+                    <h2>作業内容</h2>
+                    <ul>
+                        <li>メタタイトルの表示形式の変更</li>
+                        <li>CMS入力のエラー表示位置</li>
+                        <li>サブカテゴリのTwitter-Card</li>
+                    </ul>
+                    <h1><i class="fa fa-caret-down" aria-hidden="true"></i></h1>
+                    <h2>デプロイ</h2>
+                </section>
+
+                <section>
+                    <h2>メタタイトルの表示</h2>
+                </section>
+
+                <section>
+                    <h2>要求</h2>
+                    英語版などで煽り文がないときのメタタイトルのハイフンが連続する
+                    
+                </section>
+
+                <section>
+                    <h2>手法</h2>
+                <section data-markdown>
+                <script type="text/template">                    
+                        ### 煽り文パーツがあった場合
+
+
+                             ```(タイトル） - （煽り文） - pixivision(ピクシビジョン)```
+
+                        ### 煽り文が存在しない場合
+
+                            ```(タイトル）- pixivision(ピクシビジョン)```
+                </script>                 
+                </section>
+                </section>
+
+                <section >
+                    <h2>記事作成画面</h2>
+
+                </section>
+
+                <section >
+                    <h2>要求</h2>
+                    <ul>
+                        <li>メタタイトルの表示形式の変更</li>
+                        <li>CMS入力のエラー表示位置</li>
+                        <li>サブカテゴリのTwitter-Card</li>
+                    </ul>
+                    <h3>エラーの内容をUIによりライターや業者が判別可能</h3>
+                    <h1><i class="fa fa-caret-down" aria-hidden="true"></i></h1>
+                    <h3>今後のpixivisionの発展に貢献</h3>
+                </section>
+
+                <section >
+                    <h2>手法</h2>
+                    <ul>
+                        <li>複数のエラーケースの同時発生に対応
+                        </li>
+                        <li>エラー発生箇所にエラーない用の詳細を表示
+                        </li>
+                        <li>対応するエラーケースのカバー率向上
+                        </li>
+                    </ul>
+                </section>
+                <section >
+                    <h2>サブカテゴリのTwitter-Card</h2>
+                    
+                </section>
+
+                <section >
+                    <h2>要求</h2>
+                    今後のpixivisionの展開
+                    <h1><i class="fa fa-caret-down" aria-hidden="true"></i></h1>
+                    SNS連携
+                    <!-- サブカテゴリの表示が必要と成る理由 -->
+                    <img src="img/twittercard_disabled.png">
+
+                </section>
+
+                <section >
+                    <h2>手法</h2>
+                    Pixivision_SubCategoryController内のみで生成
+                    <h1><i class="fa fa-caret-down" aria-hidden="true"></i></h1>
+
+                    metaタグ内にレンダリング
+                    <img src="img/twittercard.png">
+
+                </section>
+                <section >
+                    <h1>まとめ</h1>
+                    <ul>
+                        <li>要求ごとの設計
+                        </li>
+                        <li>サービスへのデプロイ
+                        </li>
+                        <li>リファクタリング
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+        <script src="js/reveal.js"></script>
+        <script>
+            Reveal.initialize({
+                // Display the page number of the current slide
+                slideNumber: true,
+
+                
+
+
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true }
+                ]
+            });
+        </script>
+    </body>
+</html>
