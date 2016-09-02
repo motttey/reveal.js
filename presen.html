@@ -3,10 +3,12 @@
         <meta http-equiv="Content-Script-Type" content="text/javascript">
         <meta charset = "utf-8">
         <link rel="stylesheet" href="css/reveal.css">
-        <link rel="stylesheet" href="css/theme/white.css">
+        <link rel="stylesheet" href="css/theme/black.css">
         <link rel="stylesheet" href="font-awesome-4.6.3/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/style.css">
         <script src="lib/js/head.min.js"></script>
+
+        <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
         <!-- font-awesomeとか入れる -->
     </head>
     <body>
@@ -17,114 +19,214 @@
                     <h1>SUMMER BOOT CAMP</h1>
                     <h1>成果発表</h1>
                     <br>
-                    <h4>首都大学東京 B3</h4>
-                    <h3>高見 玲</h3>
+                    <h4>首都大学東京 システムデザイン学部 B3</h4>
+                    <h3>高見 玲 @motttey</h3>
                 </section>
 
                 <section>
-                     <h1>pixivision</h3>
-                    <!-- 画像におきかえ -->
+                    <h1><img src="img/pixivision-white-logo.svg" width="100%" alt="pixivision" class="no-border"></h1>
                 </section>
 
                 <section>
-                    <h2>作業内容</h2>
+
+                    <h2>行ったこと</h2>
                     <ul>
-                        <li>メタタイトルの表示形式の変更</li>
-                        <li>CMS入力のエラー表示位置</li>
-                        <li>サブカテゴリのTwitter-Card</li>
-                    </ul>
-                    <h1><i class="fa fa-caret-down" aria-hidden="true"></i></h1>
-                    <h2>デプロイ</h2>
-                </section>
-
-                <section>
-                    <h2>メタタイトルの表示</h2>
-                </section>
-
-                <section>
-                    <h2>要求</h2>
-                    英語版などで煽り文がないときのメタタイトルのハイフンが連続する
-                    
-                </section>
-
-                <section>
-                    <h2>手法</h2>
-                <section data-markdown>
-                <script type="text/template">                    
-                        ### 煽り文パーツがあった場合
-
-
-                             ```(タイトル） - （煽り文） - pixivision(ピクシビジョン)```
-
-                        ### 煽り文が存在しない場合
-
-                            ```(タイトル）- pixivision(ピクシビジョン)```
-                </script>                 
-                </section>
-                </section>
-
-                <section >
-                    <h2>記事作成画面</h2>
-
-                </section>
-
-                <section >
-                    <h2>要求</h2>
-                    <ul>
-                        <li>メタタイトルの表示形式の変更</li>
-                        <li>CMS入力のエラー表示位置</li>
-                        <li>サブカテゴリのTwitter-Card</li>
-                    </ul>
-                    <h3>エラーの内容をUIによりライターや業者が判別可能</h3>
-                    <h1><i class="fa fa-caret-down" aria-hidden="true"></i></h1>
-                    <h3>今後のpixivisionの発展に貢献</h3>
-                </section>
-
-                <section >
-                    <h2>手法</h2>
-                    <ul>
-                        <li>複数のエラーケースの同時発生に対応
+                        <li>チーム作業上の実際の要求へ向けた機能設計
                         </li>
-                        <li>エラー発生箇所にエラーない用の詳細を表示
+                        <li>機能の実装とリファクタリング
                         </li>
-                        <li>対応するエラーケースのカバー率向上
+                        <li>デプロイ
                         </li>
                     </ul>
+
+                    <h2><br>実際の作業内容</h2>
+                    <ul>
+                        <li>HTMLの記事タイトル要素の出力形式の変更</li>
+                        <li>サブカテゴリのTwitter-Card作成</li>
+                        <li>記事作成画面のエラー表示形式の改善</li>
+                    </ul>
                 </section>
+
+                <section>
+                    <h2>HTMLの記事タイトル要素の<br>出力形式の変更</h2>
+                </section>
+
+                <section>
+                    <!-- HTML: 検索エンジン , OGP SNSシェアなど--> 
+                    <section>
+                    <h2>記事中のタイトル</h2>
+                    <p class="legend">
+                        ぎゅむっと詰めたい♡瓶に詰まったイラスト特集
+                    </p>
+                    <img src="img/pixivision_sample.png" width="80%"><br>
+
+                    </section>
+
+                    <section>
+                    <h2>検索結果, 履歴(HTMLタイトル)</h2>
+                            <p class="legend">
+                    <span class="important">
+                                瓶に詰まったイラスト特集ぎゅむっと詰めたい♡ </span><br> - pixivision(ピクシビジョン)
+                            </p>
+
+                    <p>
+                        HTMLタイトルの表示が不自然
+                    </p>
+                    </section>
+
+                    <section>
+                    <ul>
+                        <li>                        
+                        煽り文あり
+                            <p class="legend">
+                                 <span class="important">瓶に詰まったイラスト特集 - ぎゅむっと詰めたい♡</span><br> - pixivision(ピクシビジョン) 
+                            </p>
+                        </li>
+
+                        <li>
+                        煽り文なし
+                            <p class="legend">
+                                 瓶に詰まったイラスト特集 - pixivision(ピクシビジョン)
+                            </p>
+                        </li>
+                    </ul>
+                    </section>
+
+                    <section>
+                        <h3>処理の関数化</h3>
+
+                        <pre><code data-trim data-noescape class="php">
+    public static function generateMetaTitle($page, $lang, $pure_title, $catchphrase)
+    {
+        //複数ページのときハイフンを追加
+        if ($page > 1) {
+            $title_prefix = Lang_LocaleLang::getTrans($page . 'ページ', 'preg', $lang) . ' - ' ;     
+        } else {
+            $title_prefix = '';
+        }
+        //キャッチフレーズが存在するとき追加
+        if ($catchphrase) {
+            $title_suffix = ' - ' . $catchphrase;
+        } else {
+            $title_suffix = '';
+        }
+        <span class="important">return $title_prefix . $pure_title . $title_suffix;</span>
+    }    
+                        </code></pre>
+
+                    </section>
+
+                </section>
+
+
                 <section >
                     <h2>サブカテゴリのTwitter-Card</h2>
                     
                 </section>
 
-                <section >
-                    <h2>要求</h2>
-                    今後のpixivisionの展開
-                    <h1><i class="fa fa-caret-down" aria-hidden="true"></i></h1>
-                    SNS連携
-                    <!-- サブカテゴリの表示が必要と成る理由 -->
-                    <img src="img/twittercard_disabled.png">
+                <section>
+
+                    <section>
+                    <h1>要求</h1>
+                    <p>コミュニティマネージメントチーム</p>
+                    <h3><i class="fa fa-caret-down" aria-hidden="true"></i></h3>
+                    <p>SNSでカテゴリタグをシェアする施策</p>
+
+                    <img src="img/subc.png" width="50%">
+                    </section>
+                    <section>
+                    <p>Twitter-Cardが表示されず、<span class="important">誘目性が低い</span></p>
+                    <!-- サブカテゴリの表示が必要となる理由 -->
+                    <img src="img/twittercard_disabled.png" width="50%">
+                    </section>
+
+                    <section >
+                        <h1>手法</h1>
+                            サブカテゴリについてTwitter-Cardの内容を作成
+
+                        <img src="img/twcard_after.png" width="50%">
+
+                    </section>
 
                 </section>
 
-                <section >
-                    <h2>手法</h2>
-                    Pixivision_SubCategoryController内のみで生成
-                    <h1><i class="fa fa-caret-down" aria-hidden="true"></i></h1>
 
-                    metaタグ内にレンダリング
-                    <img src="img/twittercard.png">
+                <section >
+                    <h2>記事作成画面の<br>エラー表示形式の改善</h2>
+                </section>
+
+
+                <section>
+                    <section>
+                    <h3>現状の記事作成画面</h3>
+                    <img src="img/cms_before.png" width="80%">
+                        
+                    </section>
+
+                    <section>
+                    <h1>問題点</h1>
+                    <ul>
+                        <li>エラーメッセージからエラーの発生位置を特定できない</li>
+                        <li>複数エラーが発生しても単一のメッセージしか発生しない</li>
+                        <li>対応していないエラーケースが存在</li>
+                    </ul>
+
+                    </section>
+
+                    <section>
+                        <h3>問題点の改善</h3>
+                        <h3><i class="fa fa-caret-down" aria-hidden="true"></i></h3>
+                        <h3>エラー内容をライターや業者が判別可能</h3>
+                        <h3><i class="fa fa-caret-down" aria-hidden="true"></i></h3>
+                        <h4>今後のpixivisionの発展に貢献<br>(作業時間の短縮, ライターの増員)</h4>                    
+                    </section>
 
                 </section>
+
+                <section>
+                    <section>
+
+                    <h1>手法</h1>
+                    <ul>
+                        <li>複数のエラーケースの同時発生に対応
+                        </li>
+                        <li>エラー発生箇所にエラー内容の詳細を表示
+                        </li>
+                        <li>対応するエラーケースを増やした
+                        </li>
+                    </ul>
+                    </section>
+
+                    <section>
+                        <h3>正常時</h3>
+
+                        <img src="img/cms_after_ok.png" width="100%">
+                    </section>
+                    <!-- 利用者ベースで話す -->
+                    <section>
+                        <h3>エラー発生時</h3>
+                        <img src="img/cms_after.png" width="100%">
+                    </section>
+
+                </section>
+                
                 <section >
                     <h1>まとめ</h1>
                     <ul>
-                        <li>要求ごとの設計
+                        <li>チーム作業上の実際の要求へ向けた機能設計
                         </li>
-                        <li>サービスへのデプロイ
+                        <li>機能の実装とリファクタリング
                         </li>
-                        <li>リファクタリング
+                        <li>デプロイ
                         </li>
                     </ul>
+                </section>
+                <section>
+                    <h1>感想</h1>
+                    <h2>技術者としても利用者としても<br>
+                    楽しめた!!!!!</h2>
+                    <h2>メンターのuchienさん, shocotaさん、ピクシブ社員の皆様、インターン参加者の皆様
+                    ありがとうございました!!!!!</h2>                   
                 </section>
             </div>
         </div>
